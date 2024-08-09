@@ -1,11 +1,15 @@
 import { Error, Loader, SongCard } from "../components";
 // import { useGetTopChartsQuery } from "../redux/sevices/shazamCore";
 import { genres } from "../assets/constants";
+import { useDispatch, useSelector } from "react-redux";
 
  import { useState , useEffect} from "react";
 import axios from "axios";
 
+
 const Discover = () => {
+  const dispatch = useDispatch()
+  const {activeSong,isPlaying} = useSelector((state)=>state.player)
   // const {data,isFetching,error}= useGetTopChartsQuery();
   let [thedata , settheData ] = useState([])
   let [isFetching , setisFetching ] = useState(true)
@@ -31,6 +35,7 @@ const Discover = () => {
     then((res)=>{
       settheData(res.data) 
       console.log(res.data)
+      
       setisFetching(false)
     } 
     ).
@@ -69,7 +74,16 @@ const Discover = () => {
           </div>
           <div className="flex flex-wrap sm:justify-start justify-center gap-8">
             {thedata.map((song, i) => (
-              <SongCard key={song.key} song={song} i={i} />
+              <SongCard 
+              key={song.key}
+               song={song} 
+               i={i}
+               isPlaying={isPlaying}
+               activeSong = {activeSong}
+               data ={thedata}
+               
+               
+               />
             ))}
           </div>
         </div>
