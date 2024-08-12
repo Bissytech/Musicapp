@@ -35,7 +35,6 @@ const Discover = () => {
     then((res)=>{
       settheData(res.data) 
       console.log(res.data)
-      
       setisFetching(false)
     } 
     ).
@@ -52,6 +51,7 @@ const Discover = () => {
  
   return (
     <div className="flex flex-col">
+      
       {isFetching
         ? <Loader title="Loading songs..." />
         : 
@@ -69,6 +69,7 @@ const Discover = () => {
                 <option key={genre.value} value={genre.value}>
                   {genre.title}
                 </option>
+              
               ))}
             </select>
           </div>
@@ -81,6 +82,7 @@ const Discover = () => {
                isPlaying={isPlaying}
                activeSong = {activeSong}
                data ={thedata}
+               
                
                
                />

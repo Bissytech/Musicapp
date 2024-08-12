@@ -1,17 +1,43 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux"; 
 import PlayPause from "./PlayPause";
+import { useEffect, useRef } from "react";
+
 import { playPause, setActiveSong } from "../redux/features/playerSlice";
 
-const SongCard = ({ song, i ,isPlaying,activeSong}) => {
+
+const SongCard = ({ song, i ,isPlaying,activeSong,data}) => {
+  const dispatch = useDispatch();
+ 
+  const ref = useRef(null);
   
-activeSong = "Big Dawgs"
+
+
   const handlePauseClick = () =>{
 
+   dispatch(playPause(false));   
+   ref.current?.pause()
+   ref.current.currentTime = 0
+
   };
-  const handlePlayClick = () =>{
-    
+
+  const handlePlayClick = (song,i) =>{
+    // Set the new song as the active song
+    dispatch(setActiveSong({ song, data, i }));
+    dispatch(playPause(true));
+    ref.current.play()
   };
+
+  useEffect(() => {
+    ref.current.addEventListener('ended' , ()=>  dispatch(playPause(false)))
+  
+    return () => {
+      ref.current.addEventListener('ended' , ()=>  dispatch(playPause(false)))
+    }
+  }, [])
+  
+
+ 
 
 
   return (
@@ -19,7 +45,7 @@ activeSong = "Big Dawgs"
       <div className="relative w-full h-56 group">
         <div
           className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${
-            activeSong.id === song.id
+            activeSong.href === song.href
               ? "flex bg-black bg-opacity-70"
               : "hidden"
           }`}
@@ -29,8 +55,13 @@ activeSong = "Big Dawgs"
           activeSong = {activeSong}
           song={song} 
           handlePause ={handlePauseClick}
-          handlePlay={handlePlayClick}
+          handlePlay={()=>handlePlayClick(song,i)}
           />
+           <audio
+           id={`${i}`}
+  src={song.attributes.previews[0].url}
+  ref={ref}
+/> 
         </div>
         <img src={song.attributes.artwork.url} alt="song_img" />
       </div>
