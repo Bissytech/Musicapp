@@ -7,7 +7,7 @@ const PlayPause = ({ isPlaying, activeSong, song, handlePause, handlePlay }) =>{
 
   return(
   <>
-  {isPlaying && activeSong?.href === song.href ? (
+  {isPlaying && activeSong?.id === song.id ? (
     <FaPauseCircle size={35} className="text-gray-300" onClick={handlePause} />
     
   ) : (
@@ -19,7 +19,7 @@ const PlayPause = ({ isPlaying, activeSong, song, handlePause, handlePlay }) =>{
 </>)
   
   
-  ;}
+  }
 
 export default PlayPause;
 
