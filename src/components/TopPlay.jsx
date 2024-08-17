@@ -85,7 +85,7 @@ const TopPlay = () => {
 
   const handlePlayClick = (song, i) => {
     // Set the new song as the active song
-    dispatch(setActiveSong({ song, data, i }));
+    dispatch(setActiveSong({ song, i }));
     dispatch(playPause(true));
     ref.current.play();
   };
