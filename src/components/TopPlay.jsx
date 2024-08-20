@@ -58,16 +58,11 @@ const TopPlay = () => {
 
   useEffect(() => {
     axios
-      .get("https://robo-music-api.onrender.com/music/my-api", {
-        // headers : {
-        //   'x-rapidapi-key' : encodeURIComponent('81acd1d9f4msh5610853c6afd749p1033e3jsndf2cdf54e689'),
-        //   'x-rapidapi-host' : encodeURIComponent('shazam-core.p.rapidapi.com​')
-        // }
-      })
+      .get("https://robo-music-api.onrender.com/music/my-api")
       .then((res) => {
         settheData(res.data);
         console.log(res.data);
-        setisFetching(false);
+        
       })
       .catch((err) => console.log(err));
   }, []);

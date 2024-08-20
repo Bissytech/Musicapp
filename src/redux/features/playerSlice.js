@@ -58,9 +58,17 @@ const playerSlice = createSlice({
     selectGenreListId: (state, action) => {
       state.genreListId = action.payload;
     },
+
+    setAudio: (state, action) => {
+      // Store the audio reference in the state
+      if (state.currentAudio) {
+        state.currentAudio.pause(); // Pause the currently playing audio if any
+      }
+      state.currentAudio = action.payload; // Set the new audio reference
+    },
   },
 });
 
-export const { setActiveSong, nextSong, prevSong, playPause, selectGenreListId } = playerSlice.actions;
+export const { setActiveSong, nextSong, prevSong, playPause, selectGenreListId ,setAudio} = playerSlice.actions;
 
 export default playerSlice.reducer;
