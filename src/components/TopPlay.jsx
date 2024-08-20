@@ -1,51 +1,52 @@
-import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode } from "swiper";
-import PlayPause from "./PlayPause";
-import { playPause, setActiveSong } from "../redux/features/playerSlice";
-//import {useGetTopChartsQuery} from '../redux/services/shazamCore'
-import axios from "axios";
-import "swiper/css";
-import "swiper/css/free-mode";
-import { SongDetails } from "../pages";
+import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { FreeMode } from 'swiper';
+import axios from 'axios';
+import PlayPause from './PlayPause';
+import { playPause, setActiveSong } from '../redux/features/playerSlice';
+// import {useGetTopChartsQuery} from '../redux/services/shazamCore'
+// eslint-disable-next-line import/no-unresolved
+import 'swiper/css';
+// eslint-disable-next-line import/no-unresolved
+import 'swiper/css/free-mode';
+// eslint-disable-next-line import/no-cycle
+import { SongDetails } from '../pages';
 
-const TopChartCard = ({ song, i, isPlaying,activeSong,handlePauseClick,handlePlayClick }) => {
+const TopChartCard = ({ song, i, isPlaying, activeSong, handlePauseClick, handlePlayClick }) => {
+  // eslint-disable-next-line no-console
   console.log(song);
-  return(
+  return (
     <div className="w-full flex flex-row items-center hover:bg-[#4c426e] py-2 p-4 rounded-1g cursor-pointer mb-2">
-    <h3 className="fot-bold text-base text-white mr-3">{i + 1}.</h3>
-    <div className="flex-1 flex flex-row justify-between items-center">
-      <img
-        className="w-10 h-10 rounded-lg"
-        src={song?.songImage}
-        alt={song.artistName}
-      />
-      <div className="flex-1 flex flex-col justify-center mx-3">
-        <Link to={`/songs/${song.key}`}>
-          <p className="text-xl font-bold text-white">{song?.albumName}</p>
-        </Link>
-        <Link to={`/artist/${song?.artistName[0].adamid}`}>
-          <p className="text-ase text-gray text-white mt-1">
-            {song?.artistName}
-          </p>
-        </Link>
+      <h3 className="fot-bold text-base text-white mr-3">{i + 1}.</h3>
+      <div className="flex-1 flex flex-row justify-between items-center">
+        <img
+          className="w-10 h-10 rounded-lg"
+          src={song?.songImage}
+          alt={song.artistName}
+        />
+        <div className="flex-1 flex flex-col justify-center mx-3">
+          <Link to={`/songs/${song.key}`}>
+            <p className="text-xl font-bold text-white">{song?.albumName}</p>
+          </Link>
+          <Link to={`/artist/${song?.artistName[0].adamid}`}>
+            <p className="text-ase text-gray text-white mt-1">
+              {song?.artistName}
+            </p>
+          </Link>
+        </div>
       </div>
+      <PlayPause
+        isPlaying={isPlaying}
+        activeSong={activeSong}
+        song={song}
+        handlePause={handlePauseClick}
+        handlePlay={() => handlePlayClick(song, i)}
+      />
     </div>
-    <PlayPause
-    isPlaying={isPlaying}
-    activeSong={activeSong}
-    song={song}
-    handlePause={handlePauseClick}
-    handlePlay={()=>handlePlayClick(song,i)}
-    />
-  </div>
 
   );
-
- 
-  
 };
 
 const TopPlay = () => {
@@ -54,11 +55,11 @@ const TopPlay = () => {
 
   const { activeSong, isPlaying } = useSelector((state) => state.player);
   const divRef = useRef(null);
-  let [thedata, settheData] = useState([]);
+  const [thedata, settheData] = useState([]);
 
   useEffect(() => {
     axios
-      .get("https://robo-music-api.onrender.com/music/my-api", {
+      .get('https://robo-music-api.onrender.com/music/my-api', {
         // headers : {
         //   'x-rapidapi-key' : encodeURIComponent('81acd1d9f4msh5610853c6afd749p1033e3jsndf2cdf54e689'),
         //   'x-rapidapi-host' : encodeURIComponent('shazam-core.p.rapidapi.com​')
@@ -66,20 +67,24 @@ const TopPlay = () => {
       })
       .then((res) => {
         settheData(res.data);
+        // eslint-disable-next-line no-console
         console.log(res.data);
-        setisFetching(false);
+        // setisFetching(false);
       })
+      // eslint-disable-next-line no-console
       .catch((err) => console.log(err));
   }, []);
 
   useEffect(() => {
-    divRef.current.scrollIntoView({ behaviour: "smooth" });
+    divRef.current.scrollIntoView({ behaviour: 'smooth' });
   });
   const topPlays = thedata?.slice(0, 5);
 
   const handlePauseClick = () => {
     dispatch(playPause(false));
+    // eslint-disable-next-line no-undef
     ref.current?.pause();
+    // eslint-disable-next-line no-undef
     ref.current.currentTime = 0;
   };
 
@@ -87,6 +92,7 @@ const TopPlay = () => {
     // Set the new song as the active song
     dispatch(setActiveSong({ song, i }));
     dispatch(playPause(true));
+    // eslint-disable-next-line no-undef
     ref.current.play();
   };
   return (
@@ -103,8 +109,15 @@ const TopPlay = () => {
         </div>
         <div className="mt-4 flex flex-col gap-1">
           {topPlays?.map((song, i) => (
-            <TopChartCard key={song.key} song={song} i={i} isPlaying={isPlaying} activeSong={activeSong} handlePauseClick={handlePauseClick} 
-            handlePlayClick={handlePlayClick}/>
+            <TopChartCard
+              key={song.key}
+              song={song}
+              i={i}
+              isPlaying={isPlaying}
+              activeSong={activeSong}
+              handlePauseClick={handlePauseClick}
+              handlePlayClick={handlePlayClick}
+            />
           ))}
         </div>
       </div>
@@ -128,10 +141,10 @@ const TopPlay = () => {
         {topPlays?.map((song, i) => (
           <SwiperSlide
             key={song?.key}
-            style={{ width: "25%", height: "auto" }}
+            style={{ width: '25%', height: 'auto' }}
             className="shadow-lg rounded-full animate-slideright"
           >
-            <Link to={`/artist/${song?.artistName[0].adamid}`}></Link>
+            <Link to={`/artist/${song?.artistName[0].adamid}`} />
             <img
               src={song?.songImage}
               alt="supposedName"
@@ -140,11 +153,10 @@ const TopPlay = () => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <SongDetails/>
+      <SongDetails />
     </div>
-  
+
   );
 };
-
 
 export default TopPlay;

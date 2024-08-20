@@ -1,12 +1,13 @@
-import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { DetailsHeader, Error, Loader, RelatedSongs } from "../components";
-import { setActiveSong, playPause } from "../redux/features/playerSlice";
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { DetailsHeader, Error, Loader, RelatedSongs } from '../components';
+import { setActiveSong, playPause } from '../redux/features/playerSlice';
+
 const SongDetails = () => {
   const [songData, setsongData] = useState([]);
-  const {id: songid } = useParams();
+  const { id: songid } = useParams();
   // const {data,isFetching,isFetchingRelatedSongs,error}= useGetSongRelated({songId})    const {activeSong, isPlaying} = useSelector((state=>state.player))- if fetching using shazamcore
   console.log(songid);
 
@@ -27,7 +28,7 @@ const SongDetails = () => {
 
   useEffect(() => {
     axios
-      .get("https://robo-music-api.onrender.com/music/my-api", {
+      .get('https://robo-music-api.onrender.com/music/my-api', {
         // headers : {
         //   'x-rapidapi-key' : encodeURIComponent('81acd1d9f4msh5610853c6afd749p1033e3jsndf2cdf54e689'),
         //   'x-rapidapi-host' : encodeURIComponent('shazam-core.p.rapidapi.com​')
@@ -41,17 +42,17 @@ const SongDetails = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  //if(isFetchingSongDetails || isFetchingRelatedSongs) return <Loader title="searching for related song details/>"
-  //if (error) return <Error/>
+  // if(isFetchingSongDetails || isFetchingRelatedSongs) return <Loader title="searching for related song details/>"
+  // if (error) return <Error/>
   return (
     <div className="flex flex-col">
       {/* <DetailsHeader artistId='' songData={songData}/> */}
       <div className="mb-10">
         <h2 className="text-white text-3xl font-bold">Lyrics:</h2>
-        {/* there will be a need to fetch for a song lyric which you do not have, to fetch, carry on with the normol process of using axios to fetch  1:50*/}
+        {/* there will be a need to fetch for a song lyric which you do not have, to fetch, carry on with the normol process of using axios to fetch  1:50 */}
         <div className="mt-5">
           {/* map the lyrics in this section */}
-          {songData?.id === "LYRICS" ? (
+          {songData?.id === 'LYRICS' ? (
             songData?.section[1].text.map((Line, i) => (
               <p className="text-gray-400 text-base my-1">{Line}</p>
             ))
@@ -68,7 +69,7 @@ const SongDetails = () => {
             activeSong={activeSong}
             handlePause={handlePauseClick}
             handlePlay={handlePlayClick}
-    
+
             /> */}
       {/* there will be a need to make another api call in relation to the artist details */}
     </div>

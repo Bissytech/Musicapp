@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import PlayPause from "./PlayPause";
-import { useEffect, useRef } from "react";
+/* eslint-disable jsx-a11y/media-has-caption */
+import { Link } from 'react-router-dom';
+// eslint-disable-next-line no-unused-vars
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useRef } from 'react';
+import PlayPause from './PlayPause';
 
-import { playPause, setActiveSong } from "../redux/features/playerSlice";
+import { playPause, setActiveSong } from '../redux/features/playerSlice';
 
 const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
   const dispatch = useDispatch();
@@ -16,6 +18,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
     // ref.current.currentTime = 0;
   };
 
+  // eslint-disable-next-line no-shadow
   const handlePlayClick = (song, i) => {
     // Set the new song as the active song
     dispatch(setActiveSong({ song, data, i }));
@@ -24,10 +27,10 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
   };
 
   useEffect(() => {
-    ref.current.addEventListener("ended", () => dispatch(playPause(false)));
+    ref.current.addEventListener('ended', () => dispatch(playPause(false)));
 
     return () => {
-      ref.current.addEventListener("ended", () => dispatch(playPause(false)));
+      ref.current.addEventListener('ended', () => dispatch(playPause(false)));
     };
   }, []);
 
@@ -37,8 +40,8 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
         <div
           className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${
             activeSong.artistName === song.artistName
-              ? "flex bg-black bg-opacity-70"
-              : "hidden"
+              ? 'flex bg-black bg-opacity-70'
+              : 'hidden'
           }`}
         >
           <PlayPause
@@ -49,7 +52,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
             handlePlay={() => handlePlayClick(song, i)}
           />
           <audio id={`${i}`} src={song?.songUrl} ref={ref} />
-          
+
         </div>
         <img src={song.songImage} alt="song_img" />
       </div>
@@ -67,7 +70,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
             to={
               song.artistName
                 ? `/artists/${song.artistName[0].adamid}`
-                : "/top-artists"
+                : '/top-artists'
             }
           >
             {song.artistName}
