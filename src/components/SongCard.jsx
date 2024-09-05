@@ -52,7 +52,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
             handlePlay={() => handlePlayClick(song, i)}
           />
           {/* Audio element for playback */}
-          <audio id={`${i}`} src={song?.preview} ref={ref} />
+          {/* <audio id={`${i}`} src={song?.preview} ref={ref} /> */}
         </div>
         <img src={song.album.cover_big} alt="song_img" />
       </div>

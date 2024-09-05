@@ -11,6 +11,7 @@ import {
   SongDetails,
   TopCharts,
 } from './pages';
+import Topartist from './pages/Topartist';
 
 const App = () => {
   const { activeSong } = useSelector((state) => state.player);
@@ -26,6 +27,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Discover />} />
               <Route path="/top-albums" element={<TopAlbum />} />
+              <Route path="/top-artists" element={<Topartist />} />
               <Route path="/top-charts" element={<TopCharts />} />
               <Route path="/around-you" element={<AroundYou />} />
               <Route path="/artists/:id" element={<ArtistDetails />} />

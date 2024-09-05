@@ -22,7 +22,9 @@ const Player = ({ activeSong, isPlaying, volume, seekTime, onEnded, onTimeUpdate
 
   return (
     <audio
-      src={activeSong?.hub?.actions[1]?.uri}
+      // src={activeSong?.hub?.actions[1]?.uri}
+      src={activeSong?.preview}
+
       ref={ref}
       loop={repeat}
       onEnded={onEnded}
