@@ -31,19 +31,21 @@ const Discover = () => {
 
   useEffect(() => {
     axios
-      .get('https://robo-music-api.onrender.com/music/my-api', {
+      .get('https://utils.check-dc.com/api/proxify?url=https://api.deezer.com/chart/0', {
         // headers : {
         //    'x-rapidapi-key' : encodeURIComponent('81acd1d9f4msh5610853c6afd749p1033e3jsndf2cdf54e689'),
-        //    'x-rapidapi-host' : encodeURIComponent('shazam-core.p.rapidapi.com​')
+        //    'x-rapidapi-host' : encodeURIComponent('shazam-core.p.rapidapi.com​') .data.albums.data
         // }
       })
       .then((res) => {
-        settheData(res.data);
-        console.log(res.data);
+        settheData(res.data.tracks.data);
+        console.log(res.data.tracks.data);
         setisFetching(false);
       })
       .catch((err) => console.log(err));
   }, []);
+
+ 
 
   // if (isFetching) {
   //   return
@@ -54,7 +56,8 @@ const Discover = () => {
       {isFetching ? (
         <Loader title="Loading songs..." />
       ) : (
-        <div>
+        <div>  
+          
           <div className="w-full flex justify-between items-center sm:flex-row flex-col mt-4 mb-10">
             <h2 className="font-bold text-3xl text-white text-left">
               Discover {genreTitle}

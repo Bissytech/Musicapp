@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import { Searchbar, Sidebar, MusicPlayer, TopPlay } from './components';
 import {
   ArtistDetails,
-  TopArtists,
+  TopAlbum,
   AroundYou,
   Discover,
   Search,
@@ -25,7 +25,7 @@ const App = () => {
           <div className="flex-1 h-fit pb-40">
             <Routes>
               <Route path="/" element={<Discover />} />
-              <Route path="/top-artists" element={<TopArtists />} />
+              <Route path="/top-albums" element={<TopAlbum />} />
               <Route path="/top-charts" element={<TopCharts />} />
               <Route path="/around-you" element={<AroundYou />} />
               <Route path="/artists/:id" element={<ArtistDetails />} />

@@ -8,6 +8,7 @@ const Controls = ({ isPlaying, repeat, setRepeat, shuffle, setShuffle, currentSo
     {currentSongs?.length && <MdSkipPrevious size={30} color="#FFF" className="cursor-pointer" onClick={handlePrevSong} />}
     {isPlaying ? (
       <BsFillPauseFill size={45} color="#FFF" onClick={handlePlayPause} className="cursor-pointer" />
+      
     ) : (
       <BsFillPlayFill size={45} color="#FFF" onClick={handlePlayPause} className="cursor-pointer" />
     )}

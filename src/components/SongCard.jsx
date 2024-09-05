@@ -8,7 +8,7 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
   const dispatch = useDispatch();
   const ref = useRef(null);
 
-  const handlePauseClick = () => {
+  const handlePauseClick = () =>{
     dispatch(playPause(false));
     ref?.current?.pause();
   };
@@ -35,11 +35,11 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-1g cursor-pointer">
-      <div className="relative w-full h-56 group">
+    <div className="flex flex-col w-[200px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-1g cursor-pointer">
+      <div className="relative w-full h-40 group">
         <div
           className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${
-            activeSong?.artistName === song.artistName
+            activeSong?.id === song.id
               ? "flex bg-black bg-opacity-70"
               : "hidden"
           }`}
@@ -52,9 +52,9 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
             handlePlay={() => handlePlayClick(song, i)}
           />
           {/* Audio element for playback */}
-          <audio id={`${i}`} src={song?.songUrl} ref={ref} />
+          <audio id={`${i}`} src={song?.preview} ref={ref} />
         </div>
-        <img src={song.songImage} alt="song_img" />
+        <img src={song.album.cover_big} alt="song_img" />
       </div>
       <div className="mt-4 flex flex-col">
         <p>
@@ -62,18 +62,18 @@ const SongCard = ({ song, i, isPlaying, activeSong, data }) => {
             to={`/songs/${song?.key}`}
             className="font-semibold text-1g text-white"
           >
-            {song.artistName}
+            {song.title}
           </Link>
         </p>
         <p className="text-sm truncate text-gray-300 mt-1">
           <Link
             to={
-              song.artistName && Array.isArray(song.artistName)
-                ? `/artists/${song.artistName[0]?.adamid}`
+              song.artist.name && Array.isArray(song.artist.name)
+                ? `/artists/${song.artist.name[0]?.adamid}`
                 : "/top-artists"
             }
           >
-            {song.artistName}
+            {song.artist.name}
           </Link>
         </p>
       </div>

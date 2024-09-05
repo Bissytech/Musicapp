@@ -49,7 +49,7 @@ const SongDetails = () => {
       {/* <DetailsHeader artistId='' songData={songData}/> */}
       <div className="mb-10">
         <h2 className="text-white text-3xl font-bold">Lyrics:</h2>
-        {/* there will be a need to fetch for a song lyric which you do not have, to fetch, carry on with the normol process of using axios to fetch  1:50 */}
+        {/* there will be a need to fetch for a song lyric which you do not have, to fetch, carry on with the normal process of using axios to fetch  1:50 */}
         <div className="mt-5">
           {/* map the lyrics in this section */}
           {songData?.id === 'LYRICS' ? (
